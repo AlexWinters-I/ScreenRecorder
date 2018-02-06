@@ -10,7 +10,7 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "net.yrom.screenrecorder.demo"
+        applicationId 'com.ourpalm.screenrecorder'
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 105
