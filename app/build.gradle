@@ -1,12 +1,21 @@
 apply plugin: 'com.android.application'
 android {
+    signingConfigs {
+        config {
+            keyPassword '123123'
+            storeFile file('D:/StudioProjects/recorderSign.jks')
+            storePassword '123123'
+            keyAlias 'key0'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "net.yrom.screenrecorder.demo"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 15
-        versionName '1.5'
+        versionCode 105
+        versionName '1.05'
+        signingConfig signingConfigs.config
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -16,6 +25,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     buildToolsVersion '26.0.2'

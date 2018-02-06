@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.yrom.screenrecorder;
+package com.ourpalm.screenrecorder;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -47,7 +47,7 @@ import java.util.Locale;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION_CODES.M;
-import static net.yrom.screenrecorder.ScreenRecorder.VIDEO_AVC;
+import static com.ourpalm.screenrecorder.ScreenRecorder.VIDEO_AVC;
 
 public class MainActivity extends Activity {
     private static final int REQUEST_MEDIA_PROJECTION = 1;
@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
         mMediaProjectionManager = (MediaProjectionManager) getApplicationContext().getSystemService(MEDIA_PROJECTION_SERVICE);
         mNotifications = new Notifications(getApplicationContext());
         bindViews();
+        onButtonClick(null);
     }
 
     @Override
@@ -98,8 +99,7 @@ public class MainActivity extends Activity {
                 return;
             }
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US);
-            final File file = new File(dir, "Screen-" + format.format(new Date())
-                    + "-" + video.width + "x" + video.height + ".mp4");
+            final File file = new File(dir, "video.mp4");
             Log.d("@@", "Create recorder with :" + video + "\n " + file);
             mRecorder = newRecorder(mediaProjection, video, file);
             if (hasPermissions()) {
@@ -156,22 +156,20 @@ public class MainActivity extends Activity {
         wm.getDefaultDisplay().getRealMetrics(metric);
         int width = metric.widthPixels;
         int height = metric.heightPixels;
-        if(width > height){
+        if(width < height){
             width = width^height;
             height = width^height;
             width = width^height;
         }
-        int framerate = 18;
-        int iframe = 2;
-        int bitrate = 600000;
+        int framerate = 20;
+        int iframe = 5;
+        int bitrate = 800000;
         MediaCodecInfo.CodecProfileLevel profileLevel = null;
-        return new VideoEncodeConfig(width, height, bitrate,
-                framerate, iframe, codec, VIDEO_AVC, profileLevel);
+        return new VideoEncodeConfig(width, height, bitrate, framerate, iframe, codec, VIDEO_AVC, profileLevel);
     }
 
     private static File getSavingDir() {
-        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),
-                "ScreenCaptures");
+        return new File(Environment.getExternalStorageDirectory(), "ScreenRecorder");
     }
 
     @Override

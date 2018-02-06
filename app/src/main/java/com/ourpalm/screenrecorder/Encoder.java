@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.yrom.screenrecorder;
+package com.ourpalm.screenrecorder;
 
 import java.io.IOException;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.yrom.screenrecorder;
+package com.ourpalm.screenrecorder;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -29,7 +29,6 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 
 import static android.os.Build.VERSION_CODES.O;
-import static net.yrom.screenrecorder.MainActivity.ACTION_STOP;
 
 /**
  * @author yrom
@@ -92,7 +91,7 @@ class Notifications extends ContextWrapper {
 
     private Notification.Action stopAction() {
         if (mStopAction == null) {
-            Intent intent = new Intent(ACTION_STOP).setPackage(getPackageName());
+            Intent intent = new Intent(MainActivity.ACTION_STOP).setPackage(getPackageName());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1,
                     intent, PendingIntent.FLAG_ONE_SHOT);
             mStopAction = new Notification.Action(android.R.drawable.ic_media_pause, "Stop", pendingIntent);
